@@ -13,7 +13,7 @@ const registerUser = async (name, password, isAdmin) => {
   return newUser;
 };
 
-const loginUser = async (name, password, payload) => {
+const loginUser = async (name, password) => {
   const user = await User.findOne({ where: { name } });
   if (!user) {
     throw new httpError('username or password is incorrect', 401);
@@ -22,7 +22,7 @@ const loginUser = async (name, password, payload) => {
   if (!isPasswordCorrect) {
     throw new httpError('username or password is incorrect', 401);
   }
-  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 3600 });
+  const token = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: 3600 });
   return { token, isAdmin: user.isAdmin };
 };
 
