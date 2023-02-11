@@ -17,6 +17,12 @@ module.exports = {
       },
       price: {
         type: Sequelize.FLOAT
+      },
+      createdAt: {
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        type: Sequelize.DATE
       }
     });
   },

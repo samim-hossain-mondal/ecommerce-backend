@@ -2,8 +2,10 @@ const services = require('../services/products');
 const httpError = require('../utils/httpError');
 
 const addProduct = async (req, res) => {
-  const product = req.body;
   try {
+    const product = req.body;
+    const { token } = req.headers;
+    console.log(token);
     if (req.isAdmin === false) {
       throw new httpError('Only admins can add products', 401);
     }
